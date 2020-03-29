@@ -14,7 +14,8 @@
                             </div>
                             <!--end of col-->
                             <div class="col">
-                                <input id="filter" class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search Country Name">
+                                <input id="filter" class="form-control form-control-lg form-control-borderless" type="search" 
+                                       placeholder="Search Country Name"  onsearch="clearSearch()">
                             </div>
                             <!--end of col-->
                             <div class="col-auto">
@@ -58,13 +59,11 @@
 
     <script type="text/javascript">
 
-        $("#filter").keyup(function () {
 
+        function searchResult(filter = "") {
             // Declare variables
-            var input, filter, ul, li, a, i, txtValue;
-            input = $(this).val(),
+            var ul, li, a, i, txtValue;
 
-            filter = input.toUpperCase();
             ul = document.getElementById("results");
             li = ul.getElementsByClassName('results');
 
@@ -79,6 +78,20 @@
                     li[i].style.display = "none";
                 }
             }
+        }
+
+        function clearSearch() {
+            searchResult();
+        }
+
+        $("#filter").keyup(function () {
+
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = $(this).val();
+
+            filter = input.toUpperCase();
+            searchResult(filter);
         });
     </script>
 }
