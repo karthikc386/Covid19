@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    var Countries = ViewBag.Countries;
+    int counter = 0;
+}
+
+<div class="text-center">
+    <h1 class="display-4">COVID-19 Live - Global Data !</h1>
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (KeyValuePair<string, EventModel> entry in Countries)
+            {
+                if (counter != 0 && counter % 4 == 0)
+                {
+                @:</div>
+                @:<br />
+                @:<div class="row">
+                }
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a asp-area="" asp-controller="Home" asp-action="CountryDaywiseDetails" asp-route-country="@entry.Key" class="list-group-item list-group-item-action" 
+                           style="background-color: coral;border-color: coral;font-size: x-large;padding: 0px;">
+                            @entry.Key
+                            <div class="list-group-item">
+                                Confirmed:@entry.Value.Confirmed
+                            </div>
+                            <div class="list-group-item">
+                                Deaths:@entry.Value.Deaths
+                            </div>
+                            <div class="list-group-item">
+                                Recovered:@entry.Value.Recovered
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                counter++;
+            }
+        </div>
+    </div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>

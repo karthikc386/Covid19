@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+    "libraries": [
+        {
+            "library": "datatables@1.10.20",
+            "files": [
+                "css/jquery.dataTables.css",
+                "js/jquery.dataTables.js"
+            ],
+            "destination": "wwwroot/lib/datatables"
+        }
+    ]
+}
