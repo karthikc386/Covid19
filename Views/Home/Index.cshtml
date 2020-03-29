@@ -1,41 +1,84 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var Countries = ViewBag.Countries;
-    int counter = 0;
 }
 
-<div class="text-center">
-    <h1 class="display-4">COVID-19 Live - Global Data !</h1>
-    <div class="container-fluid">
-        <div class="row">
-            @foreach (KeyValuePair<string, EventModel> entry in Countries)
-            {
-                if (counter != 0 && counter % 4 == 0)
-                {
-                @:</div>
-                @:<br />
-                @:<div class="row">
-                }
-                <div class="col-md-3">
-                    <div class="list-group">
-                        <a asp-area="" asp-controller="Home" asp-action="CountryDaywiseDetails" asp-route-country="@entry.Key" class="list-group-item list-group-item-action" 
-                           style="background-color: coral;border-color: coral;font-size: x-large;padding: 0px;">
-                            @entry.Key
-                            <div class="list-group-item">
-                                Confirmed:@entry.Value.Confirmed
+    <div class="text-center"> 
+        <div class="sticky-top">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10 col-lg-8">
+                        <div class="card-body row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <i class="fas fa-search h4 text-body"></i>
                             </div>
-                            <div class="list-group-item">
-                                Deaths:@entry.Value.Deaths
+                            <!--end of col-->
+                            <div class="col">
+                                <input id="filter" class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search Country Name">
                             </div>
-                            <div class="list-group-item">
-                                Recovered:@entry.Value.Recovered
+                            <!--end of col-->
+                            <div class="col-auto">
                             </div>
-                        </a>
+                            <!--end of col-->
+                        </div>
                     </div>
                 </div>
-                counter++;
-            }
+                <br />
+            </div>
         </div>
+
+        <div class="container-fluid" id="results">
+            <div class="row">
+                @foreach (KeyValuePair<string, EventModel> entry in Countries)
+                {
+                    <div class="col-md-3 results" style="padding-bottom:15px">
+                        <div class="list-group">
+                            <a asp-area="" asp-controller="Home" asp-action="CountryDaywiseDetails" asp-route-country="@entry.Key" class="list-group-item list-group-item-action"
+                               style="background-color: coral;border-color: coral;font-size: x-large;padding: 0px;">
+                                @entry.Key
+                                <div class="list-group-item">
+                                    Confirmed:@entry.Value.Confirmed
+                                </div>
+                                <div class="list-group-item">
+                                    Deaths:@entry.Value.Deaths
+                                </div>
+                                <div class="list-group-item">
+                                    Recovered:@entry.Value.Recovered
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
     </div>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $("#filter").keyup(function () {
+
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = $(this).val(),
+
+            filter = input.toUpperCase();
+            ul = document.getElementById("results");
+            li = ul.getElementsByClassName('results');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        });
+    </script>
+}

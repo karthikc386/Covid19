@@ -21,15 +21,10 @@
 </head>
 <body>
     <header>
-
-        <div class="page-header">
-            <h3 class="text-right text-primary"> Current Time: @DateTime.Now.TimeOfDay.ToString()</h3>
-            <h3 class="text-right text-warning"> Cached Time: @(Model == null ? "No cached entry found" : Model.Value.TimeOfDay.ToString())</h3>
-        </div>
-
-
-
-
+        <h3 class="text-center text-info" style="margin-top:1em">
+            COVID-19 Live - Global Data !
+        </h3>
+        <br />
     </header>
     <div class="container-fluid">
         <partial name="_CookieConsentPartial" />

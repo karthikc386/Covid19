@@ -86,7 +86,10 @@ namespace Covid19.Services
         public async Task<object> GetDayWiseCountryDetailsAsync(string country)
         {
             var retData = await GetCovidResourceAsync();
-            var computeData = retData.Where(x => country.Contains(x.Key)).Select(x => x.Value);
+
+            var computeData = retData
+                                .Where(x => country.Contains(x.Key))
+                                .Select(x => x.Value);
             computeData = computeData.ToList();
             return computeData;
         }
